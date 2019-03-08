@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @company.name %>
+</p>
+
+<%= form_with model: [@company, @employee], local: true do |f| %>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+  <br>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+  <br>
+  <%= f.label :email %>
+  <%= f.text_field :email%>
+  <br>
+  <%= f.label :area_id%>
+  <%= f.select :area_id, @select_area%>
+  <br>
+  <%= f.submit class: "btn btn-primary btn-sm" %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @company.employees.each do |e| %>
+      <tr>
+        <td><%= e.first_name %></td>
+        <td><%= e.last_name %></td>
+        <td><%= e.email %></td>
+        <td><%= e.area.name %></td>
+        <td><%= link_to 'Borrar', company_employee_path(@company, e), method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_company_path(@company) %> |
+<%= link_to 'Back', companies_path %>
+
+
